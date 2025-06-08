@@ -907,6 +907,47 @@
                 display: block;
             }
         }
+
+        /* Add styles for customer details form */
+        .customer-details-form {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .customer-details-form .form-group {
+            margin-bottom: 15px;
+        }
+        .customer-details-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .customer-details-form input,
+        .customer-details-form textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .customer-details-form textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .proceed-to-payment {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        .proceed-to-payment:hover {
+            background-color: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -1202,23 +1243,13 @@
                     Total: ₹0
                 </div>
                 
-                <div class="payment-methods" id="payment-section">
+                <div class="payment-methods" id="payment-section" style="display: block;">
                     <h3>Payment Method</h3>
                     <div class="payment-options">
-                        <label class="payment-option" id="credit-card-option">
-                            <input type="radio" name="payment" value="credit-card" checked>
-                            <img src="https://cdn-icons-png.flaticon.com/512/179/179457.png" alt="Credit Card" class="payment-icon">
-                            Credit/Debit Card
-                        </label>
                         <label class="payment-option" id="upi-option">
-                            <input type="radio" name="payment" value="upi">
+                            <input type="radio" name="payment" value="upi" checked>
                             <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" alt="UPI" class="payment-icon">
                             UPI Payment
-                        </label>
-                        <label class="payment-option" id="netbanking-option">
-                            <input type="radio" name="payment" value="netbanking">
-                            <img src="https://cdn-icons-png.flaticon.com/512/888/888857.png" alt="Net Banking" class="payment-icon">
-                            Net Banking
                         </label>
                         <label class="payment-option" id="cod-option">
                             <input type="radio" name="payment" value="cod">
@@ -1228,72 +1259,25 @@
                     </div>
                 </div>
                 
-                <button class="checkout-btn" id="checkout-btn">Proceed to Checkout</button>
-            </div>
-            
-            <!-- Credit Card Payment Form -->
-            <div class="payment-form" id="credit-card-form">
-                <h2>Credit/Debit Card Payment</h2>
-                <div class="form-group">
-                    <label for="card-name">Name on Card</label>
-                    <input type="text" id="card-name" placeholder="Full Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="card-number">Card Number</label>
-                    <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
-                </div>
-                <div class="card-details">
-                    <div class="form-group">
-                        <label for="expiry">Expiry Date</label>
-                        <input type="text" id="expiry" placeholder="MM/YY" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="cvv">CVV</label>
-                        <input type="text" id="cvv" placeholder="123" required>
-                    </div>
-                </div>
-                <div class="form-actions">
-                    <button class="back-to-cart" id="back-to-cart-credit">Back to Cart</button>
-                    <button class="place-order" id="place-order-credit">Pay ₹<span id="credit-total">0</span></button>
-                </div>
+                <button class="checkout-btn" id="checkout-btn" style="display: block;">Proceed to Checkout</button>
             </div>
             
             <!-- UPI Payment Form -->
-            <div class="payment-form" id="upi-form">
+            <div class="payment-form" id="upi-form" style="display: none;">
                 <h2>UPI Payment</h2>
-                <div class="form-group">
-                    <label for="upi-id">UPI ID</label>
-                    <input type="text" id="upi-id" placeholder="yourname@upi" required>
+                <div class="upi-qr-section">
+                    <div id="qr-code"></div>
+                    <p class="upi-info">Scan QR code to pay ₹<span id="upi-total">727</span></p>
+                    <p class="upi-id">UPI ID: morechetan9@ibl</p>
                 </div>
                 <div class="form-actions">
                     <button class="back-to-cart" id="back-to-cart-upi">Back to Cart</button>
-                    <button class="place-order" id="place-order-upi">Pay ₹<span id="upi-total">0</span></button>
-                </div>
-            </div>
-            
-            <!-- Net Banking Form -->
-            <div class="payment-form" id="netbanking-form">
-                <h2>Net Banking</h2>
-                <div class="form-group">
-                    <label for="bank-select">Select Bank</label>
-                    <select id="bank-select" class="form-control" required>
-                        <option value="">Select your bank</option>
-                        <option value="sbi">State Bank of India</option>
-                        <option value="hdfc">HDFC Bank</option>
-                        <option value="icici">ICICI Bank</option>
-                        <option value="axis">Axis Bank</option>
-                        <option value="pnb">Punjab National Bank</option>
-                        <option value="other">Other Bank</option>
-                    </select>
-                </div>
-                <div class="form-actions">
-                    <button class="back-to-cart" id="back-to-cart-netbanking">Back to Cart</button>
-                    <button class="place-order" id="place-order-netbanking">Pay ₹<span id="netbanking-total">0</span></button>
+                    <button class="verify-payment" id="verify-payment-upi">Verify Payment</button>
                 </div>
             </div>
             
             <!-- COD Confirmation -->
-            <div class="payment-form" id="cod-form">
+            <div class="payment-form" id="cod-form" style="display: none;">
                 <h2>Cash on Delivery</h2>
                 <p>You will pay when your order is delivered.</p>
                 <div class="form-group">
@@ -1302,27 +1286,28 @@
                 </div>
                 <div class="form-actions">
                     <button class="back-to-cart" id="back-to-cart-cod">Back to Cart</button>
-                    <button class="place-order" id="place-order-cod">Place Order (₹<span id="cod-total">0</span>)</button>
+                    <button class="place-order" id="place-order-cod">Place Order (₹<span id="cod-total">727</span>)</button>
                 </div>
             </div>
             
             <!-- Success Message -->
-            <div class="payment-form" id="success-message">
+            <div class="payment-form" id="success-message" style="display: none;">
                 <div class="success-message">
                     <div class="success-icon"><i class="fas fa-check-circle"></i></div>
                     <h3>Order Placed Successfully!</h3>
                     <p id="success-details">Your order has been placed and will be processed shortly.</p>
-                    <p>Order Total: ₹<span id="success-total">0</span></p>
+                    <p>Order Total: ₹<span id="success-total">727</span></p>
                     <button class="btn" id="continue-shopping">Continue Shopping</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script>
         // Products Data
         const products = [
-            // Ayurvedic Products (25)
+            // Ayurvedic Products (20)
             { id: 1, name: "Ashwagandha Powder", category: "ayurvedic", dosha: "vata", price: 299, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQvv7dPVGRtMyh5bRzBhPxoISWGJHhva5KvZg&s/photo-1593062096033-9c26b3f3a49a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Helps reduce stress and anxiety, improves sleep quality" },
             { id: 2, name: "Triphala Churna", category: "ayurvedic", dosha: "all", price: 249, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4Q2P-vwnkSbsaQ-iElKpxIPFq6Y0BNFu14WU628TkR3d0sDo1n5AM-MCt24TdGSrs0RQ&usqp=CAU/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Powerful digestive tonic and natural detoxifier" },
             { id: 3, name: "Brahmi Capsules", category: "ayurvedic", dosha: "vata", price: 349, image: "https://organicindia.com/cdn/shop/files/Brahmi_Front_grande.png?v=1748344879/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Enhances memory and cognitive function" },
@@ -1343,120 +1328,94 @@
             { id: 18, name: "Gokshura Powder", category: "ayurvedic", dosha: "kapha", price: 269, image: "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/b2ee47911b4d497b815e1dac5a9feaff.jpg?dpr=2&format=auto/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Urinary and reproductive health" },
             { id: 19, name: "Tulsi Drops", category: "ayurvedic", dosha: "all", price: 199, image: "https://rcmbusiness.gumlet.io/PROD_IMAGES/240627110441758302.jpg?w=300&dpr=2.6/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Respiratory and immune support" },
             { id: 20, name: "Chyawanprash", category: "ayurvedic", dosha: "all", price: 399, image: "https://organicindia.com/cdn/shop/products/Chwyanprash-Benefits.jpg?v=1713250497/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Rejuvenating herbal jam for overall health" },
-            { id: 21, name: "Vishatinduka vati", category: "ayurvedic", dosha: "all", price: 150, image: "https://organicindia.com/cdn/shop/products/Chwyanprash-Benefits.jpg?v=1713250497/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats chronic skin disease,arthritis" },
-            { id: 22, name: "Bhallataka Avaleha", category: "ayurvedic", dosha: "all", price: 169, image: "https://organicindia.com/cdn/shop/products/Chwyanprash-Benefits.jpg?v=1713250497/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Boosts immunity,treats leucoderma" },
-            { id: 23, name: "Kanchnar Guggulu", category: "ayurvedic", dosha: "all", price: 189, image: "https://organicindia.com/cdn/shop/products/Chwyanprash-Benefits.jpg?v=1713250497/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats arthritis,paralysis,backpain" },
-            { id: 24, name: "Yograj Guggulu", category: "ayurvedic", dosha: "all", price: 199, image: "https://organicindia.com/cdn/shop/products/Chwyanprash-Benefits.jpg?v=1713250497/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "May increase pitta if taken excessievely" },
-            { id: 25, name: "Kutajghan vati", category: "ayurvedic", dosha: "all", price: 200, image: "https://organicindia.com/cdn/shop/products/Chwyanprash-Benefits.jpg?v=1713250497/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats ibs,diarrhea,colitis" },
             
-            // Homeopathic Products (25)
-            { id: 26, name: "Arnica 30C", category: "homeopathic", dosha: "all", price: 149, image: "https://www.kroger.com/product/images/large/front/0030696279724?banner=harristeeter/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For bruises, muscle soreness and trauma" },
-            { id: 27, name: "Nux Vomica 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhxB4wPl3ryrhbp7JCu7C6F00MPEqY0Uobtynym7Kjo2lY3mhIX_gHUdpQCbCDZmSyhCo&usqp=CAU/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive issues from overindulgence" },
-            { id: 28, name: "Pulsatilla 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLKxUGQEB-NipDiPY0rOw8zr2k0dDpFIn4Eg&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For emotional sensitivity and hormonal balance" },
-            { id: 29, name: "Sulphur 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEkto7CYX-BegKwaK1QLLQp3q508jEWWZTXw&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Skin conditions and itching" },
-            { id: 30, name: "Lycopodium 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://assets.truemeds.in/Images/ProductImage/TM-LINT1-001866/sbl-lycopodium-clavatum-30c-dilution-30ml_sbl-lycopodium-clavatum-30c-dilution-30ml--TM-LINT1-001866_1.png?width=320/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive issues with gas and bloating" },
-            { id: 31, name: "Belladonna 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://rukminim2.flixcart.com/image/850/1000/kelptow0/homeopathy/v/2/r/30c-30-belladonna-1-sbl-original-imafv96kwspb3cz9.jpeg?q=90&crop=false/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Sudden fever with redness and heat" },
-            { id: 32, name: "Rhus Tox 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST8wiGd13yUyBrfvWvwaYjTKUJRxWd9KFcQA&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Joint stiffness that improves with movement" },
-            { id: 33, name: "Bryonia 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/1ce99e22ff9642068041ccbd8bac22c9.jpg/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Dry cough and pains worsened by movement" },
-            { id: 34, name: "Aconite 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhdgY4io5PpsXec0YFAcrfkHO2r6WNEYMDnA&s/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Sudden onset of colds or anxiety" },
-            { id: 35, name: "Sepia 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU4T3G9fMxtI_rm3llMxl0Pk3CK0EJssaceQ&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Hormonal imbalances and fatigue" },
-            { id: 36, name: "Natrum Mur 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbrWkH9cCvK_S-BiG1PcAY9j0GTYhbuzS9Gg&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Emotional grief and headaches" },
-            { id: 37, name: "Calcarea Carb 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://homeomart.com/cdn/shop/files/Calccarb30C_2a7c1ab2-91fc-434c-94e6-81981446a42a.jpg?v=1714114326/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Slow metabolism and tendency to gain weight" },
-            { id: 38, name: "Phosphorus 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfVpWkvqOGV805GgYOAzmzanqzPT9GM_Plww&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Anxiety and respiratory issues" },
-            { id: 39, name: "Silicea 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkGVYgUzUUYWuPLlEDAEtNfPppjCnXzMn6_Q&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Weak immunity and slow healing" },
-            { id: 40, name: "Ignatia 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaBZ1UM0QYNEtII54S5kPSWf4qaeAgaIXXjg&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Emotional upset from grief or disappointment" },
-            { id: 41, name: "Gelsemium 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/eaf23b54856b401b94105b154ef62dc4.jpg?dpr=2&format=auto/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Flu-like symptoms with weakness" },
-            { id: 42, name: "Hypericum 30C", category: "homeopathic", dosha: "all", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjK8VfVHf-PNFV8fOTc0t47P0zuOJQFLBxwA&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Nerve pain after injury" },
-            { id: 43, name: "Ledum Pal 30C", category: "homeopathic", dosha: "all", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCa4WfVN_vj8he8DmutXc8jkvnB2ToBkZzIQ&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Puncture wounds and insect bites" },
-            { id: 44, name: "Apis Mel 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs9U_8newkySXF152AgMNQvRm90R1O3DkmaQ&s/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Swelling with stinging pain" },
-            { id: 45, name: "Arsenicum Alb 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWU4wdRJk1JkUXrO3M-dsmu07VFR7zhiOF3A&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Food poisoning with vomiting and diarrhea" },
-            { id: 46, name: "Carcinosin", category: "homeopathic", dosha: "vata", price: 188, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWU4wdRJk1JkUXrO3M-dsmu07VFR7zhiOF3A&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats cancer predisposition,anxiety" },
-		    { id: 47, name: "Lac Defloratum 30", category: "homeopathic", dosha: "vata", price: 195, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWU4wdRJk1JkUXrO3M-dsmu07VFR7zhiOF3A&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats menstrual irregularities,hormonal imbalance" },
-            { id: 48, name: "Thuja occidentalis", category: "homeopathic", dosha: "all", price: 190, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWU4wdRJk1JkUXrO3M-dsmu07VFR7zhiOF3A&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "May cause aggravation in high potency" },
-            { id: 49, name: "Syphilinum 200", category: "homeopathic", dosha: "all", price: 209, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWU4wdRJk1JkUXrO3M-dsmu07VFR7zhiOF3A&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Must be prescribed by an expert" },
-            { id: 50, name: "Baryta Muriatica", category: "homeopathic", dosha: "vata", price: 299, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWU4wdRJk1JkUXrO3M-dsmu07VFR7zhiOF3A&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats delayed milestones in children" },
-
-            // Allopathic Products (25)
-            { id: 51, name: "Paracetamol 500mg", category: "allopathic", dosha: "all", price: 25, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNEAQA8ws9_de41fCd3iTOa82dOMIDMxO1Bg&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Fever reducer and pain reliever" },
-            { id: 52, name: "Ibuprofen 400mg", category: "allopathic", dosha: "pitta", price: 35, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZLvffsR91EAvglFFQuXXDJ4WrnO7Vim1WUw&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Anti-inflammatory pain reliever" },
-            { id: 53, name: "Cetirizine 10mg", category: "allopathic", dosha: "kapha", price: 45, image: "https://www.xalmeds.com/cdn/shop/files/IMG_0344.jpg?v=1737265283/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antihistamine for allergies" },
-            { id: 54, name: "Omeprazole 20mg", category: "allopathic", dosha: "pitta", price: 99, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoU2YnQhwcp4T54WguU2FlwIEYUjvrT8QBaQ&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Acid reducer for heartburn" },
-            { id: 55, name: "Amoxicillin 500mg", category: "allopathic", dosha: "all", price: 129, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmJDH4heoVoLvYWRLc6IdAAXfwc1eITlX_RQ&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antibiotic for bacterial infections" },
-            { id: 56, name: "Atorvastatin 10mg", category: "allopathic", dosha: "kapha", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqBDBeZ4pt1-8IfTB4tAeipGzzYz9huRvbjw&s/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Cholesterol lowering medication" },
-            { id: 57, name: "Metformin 500mg", category: "allopathic", dosha: "kapha", price: 89, image: "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/320/320750/pack-of-metformin-tablets.jpg?w=1155&h=1575/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Diabetes medication" },
-            { id: 58, name: "Diclofenac Gel", category: "allopathic", dosha: "vata", price: 65, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuBwabIomd95duXFvdKNzqU5pFZQkcQnq4NA&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Topical pain relief for joints" },
-            { id: 59, name: "Loratadine 10mg", category: "allopathic", dosha: "kapha", price: 55, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbLlJgKzKNIdSb_VFB0ChHX6PWBZgdEWjizw&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Non-drowsy allergy relief" },
-            { id: 60, name: "Pantoprazole 40mg", category: "allopathic", dosha: "pitta", price: 119, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREASRVjHOJF3wkiFcZakq2Q1bS5bFqyglEWQ&s/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For acid reflux and GERD" },
-            { id: 61, name: "Azithromycin 250mg", category: "allopathic", dosha: "all", price: 139, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Broad spectrum antibiotic" },
-            { id: 62, name: "Montelukast 10mg", category: "allopathic", dosha: "kapha", price: 159, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For asthma and allergies" },
-            { id: 63, name: "Doxycycline 100mg", category: "allopathic", dosha: "all", price: 109, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antibiotic for various infections" },
-            { id: 64, name: "Ciprofloxacin 500mg", category: "allopathic", dosha: "all", price: 99, image: "https://images.unsplash.com/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For urinary tract infections" },
-            { id: 65, name: "Clotrimazole Cream", category: "allopathic", dosha: "kapha", price: 45, image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antifungal cream" },
-            { id: 66, name: "Ranitidine 150mg", category: "allopathic", dosha: "pitta", price: 39, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For heartburn and acid indigestion" },
-            { id: 67, name: "Salbutamol Inhaler", category: "allopathic", dosha: "kapha", price: 199, image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Bronchodilator for asthma" },
-            { id: 68, name: "Hydrocortisone Cream", category: "allopathic", dosha: "pitta", price: 59, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For skin inflammation and itching" },
-            { id: 69, name: "Aspirin 75mg", category: "allopathic", dosha: "vata", price: 29, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Blood thinner and pain reliever" },
-            { id: 70, name: "Multivitamin Tablets", category: "allopathic", dosha: "all", price: 199, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Daily essential vitamins and minerals" },
-            { id: 71, name: "Diclofenac + Misoprostal", category: "allopathic", dosha: "all", price: 299, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Pain relief with reduced ucler risk" },
-            { id: 72, name: "Colchinine + Probenecid", category: "allopathic", dosha: "all", price: 69, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Prevent gaut attacks" },
-            { id: 73, name: "Methylene Blue", category: "allopathic", dosha: "all", price: 159, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treat methemoglobinemia,malaria" },
-            { id: 74, name: "Levamisole", category: "allopathic", dosha: "all", price: 179, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Boots immunity, treats worm infections" },
-            { id: 75, name: "Pyridium(Phenazopyridine)", category: "allopathic", dosha: "all", price: 399, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Reduces UTI pain" },
-
-            // Unani Products (25)
-            { id: 76, name: "Khamira Abresham", category: "unani", dosha: "vata", price: 349, image: "https://images.unsplash.com/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Cardiac tonic and nervine stimulant" },
-            { id: 77, name: "Roghan Baiza Murgh", category: "unani", dosha: "vata", price: 249, image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Egg oil for hair growth and strength" },
-            { id: 78, name: "Habbe Azaraqi", category: "unani", dosha: "kapha", price: 299, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For joint pain and inflammation" },
-            { id: 79, name: "Sufoof-e-Muhazzil", category: "unani", dosha: "kapha", price: 279, image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Weight management formula" },
-            { id: 80, name: "Majoon Dabidul Ward", category: "unani", dosha: "pitta", price: 329, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For urinary disorders and cooling" },
-            { id: 81, name: "Arq-e-Gulab", category: "unani", dosha: "pitta", price: 199, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Rose water for skin and cooling" },
-            { id: 82, name: "Sharbat Bazoori", category: "unani", dosha: "all", price: 229, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For cough and respiratory health" },
-            { id: 83, name: "Roghan Baboona", category: "unani", dosha: "vata", price: 259, image: "https://images.unsplash.com/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For headache and nasal congestion" },
-            { id: 84, name: "Habbe Shifa", category: "unani", dosha: "all", price: 189, image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "General health tonic" },
-            { id: 85, name: "Kushta Qalai", category: "unani", dosha: "vata", price: 399, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Mineral preparation for vitality" },
-            { id: 86, name: "Majoon Falasfa", category: "unani", dosha: "vata", price: 359, image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Brain tonic and memory enhancer" },
-            { id: 87, name: "Arq-e-Mako", category: "unani", dosha: "pitta", price: 219, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For eye health and vision" },
-            { id: 88, name: "Sufoof-e-Sandal", category: "unani", dosha: "pitta", price: 279, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Cooling powder for skin conditions" },
-            { id: 89, name: "Roghan Kaddu", category: "unani", dosha: "vata", price: 239, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For earache and ear infections" },
-            { id: 90, name: "Habbe Jadwar", category: "unani", dosha: "vata", price: 289, image: "https://images.unsplash.com/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For nervous disorders and pain" },
-            { id: 91, name: "Sharbat Anar", category: "unani", dosha: "pitta", price: 249, image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Pomegranate syrup for digestion" },
-            { id: 92, name: "Majoon Ushba", category: "unani", dosha: "kapha", price: 379, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For energy and stamina" },
-            { id: 93, name: "Sufoof-e-Habis", category: "unani", dosha: "kapha", price: 299, image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For diarrhea and digestive issues" },
-            { id: 94, name: "Arq-e-Nana", category: "unani", dosha: "kapha", price: 199, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Peppermint water for digestion" },
-            { id: 95, name: "Roghan Surkh", category: "unani", dosha: "vata", price: 269, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For joint pain and massage" },
-            { id: 96, name: "Majoon Suranjan", category: "unani", dosha: "vata", price: 259, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treat gout, arthritis" },
-            { id: 97, name: "Khamira Abresham Hakim Arshad Wala", category: "unani", dosha: "vata", price: 169, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Strengthens heart ,treat palpitiations" },
-            { id: 98, name: "Roghan Baboona", category: "unani", dosha: "vata", price: 369, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats anxiety, neuralgia" },
-            { id: name: "Sufo0f-e-Mohazzil", category: "unani", dosha: "vata", price: 269, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Reduces obesity,detoxifies" },
-            { id: 85, name: "Habbe Kabid Naushadri", category: "unani", dosha: "vata", price: 229, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description:"Treats jaundice, liver disorder" },
-
-            // Herbal/Tesarites Products (25)
-            { id: 81, name: "Moringa Powder", category: "herbal", dosha: "all", price: 249, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Nutrient-rich superfood powder" },
-            { id: 82, name: "Aloe Vera Gel", category: "herbal", dosha: "pitta", price: 199, image: "https://images.unsplash.com/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For skin hydration and burns" },
-            { id: 83, name: "Spirulina Tablets", category: "herbal", dosha: "all", price: 349, image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Protein-rich algae supplement" },
-            { id: 84, name: "Flaxseed Powder", category: "herbal", dosha: "vata", price: 179, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Rich in omega-3 fatty acids" },
-            { id: 85, name: "Wheatgrass Powder", category: "herbal", dosha: "kapha", price: 299, image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Detoxifying and alkalizing" },
-            { id: 86, name: "Chia Seeds", category: "herbal", dosha: "vata", price: 229, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "High fiber and protein seeds" },
-            { id: 87, name: "Hemp Seed Oil", category: "herbal", dosha: "vata", price: 399, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Balanced omega fatty acids" },
-            { id: 88, name: "Matcha Green Tea", category: "herbal", dosha: "kapha", price: 349, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antioxidant-rich powdered tea" },
-            { id: 89, name: "Ashwagandha Tea", category: "herbal", dosha: "vata", price: 279, image: "https://images.unsplash.com/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Stress-relieving herbal tea" },
-            { id: 90, name: "Triphala Tea", category: "herbal", dosha: "all", price: 249, image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive and detox tea" },
-            { id: 91, name: "Brahmi Tea", category: "herbal", dosha: "vata", price: 269, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Brain-boosting herbal tea" },
-            { id: 92, name: "Tulsi Green Tea", category: "herbal", dosha: "kapha", price: 229, image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Immune-supporting tea" },
-            { id: 93, name: "Licorice Root", category: "herbal", dosha: "pitta", price: 199, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For throat and adrenal support" },
-            { id: 94, name: "Ginger Powder", category: "herbal", dosha: "kapha", price: 149, image: "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive aid and anti-inflammatory" },
-            { id: 95, name: "Cinnamon Powder", category: "herbal", dosha: "kapha", price: 159, image: "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Blood sugar support spice" },
-            { id: 96, name: "Fennel Seeds", category: "herbal", dosha: "vata", price: 129, image: "https://images.unsplash.com/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive aid and breath freshener" },
-            { id: 97, name: "Shatavari Tea", category: "herbal", dosha: "vata", price: 289, image: "https://images.unsplash.com/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Women's hormonal balance tea" },
-            { id: 98, name: "Gokshura Tea", category: "herbal", dosha: "kapha", price: 269, image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Urinary and reproductive health tea" },
-            { id: 99, name: "Neem Leaf Powder", category: "herbal", dosha: "pitta", price: 199, image: "https://images.unsplash.com/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Blood purifier and skin health" },
-            { id: 100, name: "Amla Powder", category: "herbal", dosha: "pitta", price: 229, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Vitamin C rich rejuvenator" }
-			{ id: 101, name:"Karpaasasthuri Lehyam", category: "herbal", dosha: "pitta", price: 249, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "boosts vitality,treats erectile dysfunction" }
-			{ id: 102, name: "Ayakantha kireetam", category: "herbal", dosha: "pitta", price: 300, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats skin disease,blood toxicity" }
-			{ id: 103, name: "Nayopayam kwath", category: "herbal", dosha: "pitta", price: 280, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Enhances memory,reduces stress" }
-			{ id: 104, name: "Thaalaga Choornam", category: "herbal", dosha: "pitta", price: 220, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats indigestion,bloating" }
-			{ id: 105, name: "Shwas kuthar rasa", category: "herbal", dosha: "pitta", price: 299, image: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Treats IBS,dysentery" }
-			
+            // Homeopathic Products (20)
+            { id: 21, name: "Arnica 30C", category: "homeopathic", dosha: "all", price: 149, image: "https://www.kroger.com/product/images/large/front/0030696279724?banner=harristeeter/photo-1584308666744-24d5c474f2ae?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For bruises, muscle soreness and trauma" },
+            { id: 22, name: "Nux Vomica 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhxB4wPl3ryrhbp7JCu7C6F00MPEqY0Uobtynym7Kjo2lY3mhIX_gHUdpQCbCDZmSyhCo&usqp=CAU/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive issues from overindulgence" },
+            { id: 23, name: "Pulsatilla 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSLKxUGQEB-NipDiPY0rOw8zr2k0dDpFIn4Eg&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For emotional sensitivity and hormonal balance" },
+            { id: 24, name: "Sulphur 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEkto7CYX-BegKwaK1QLLQp3q508jEWWZTXw&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Skin conditions and itching" },
+            { id: 25, name: "Lycopodium 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://assets.truemeds.in/Images/ProductImage/TM-LINT1-001866/sbl-lycopodium-clavatum-30c-dilution-30ml_sbl-lycopodium-clavatum-30c-dilution-30ml--TM-LINT1-001866_1.png?width=320/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive issues with gas and bloating" },
+            { id: 26, name: "Belladonna 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://rukminim2.flixcart.com/image/850/1000/kelptow0/homeopathy/v/2/r/30c-30-belladonna-1-sbl-original-imafv96kwspb3cz9.jpeg?q=90&crop=false/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Sudden fever with redness and heat" },
+            { id: 27, name: "Rhus Tox 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcST8wiGd13yUyBrfvWvwaYjTKUJRxWd9KFcQA&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Joint stiffness that improves with movement" },
+            { id: 28, name: "Bryonia 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/1ce99e22ff9642068041ccbd8bac22c9.jpg/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Dry cough and pains worsened by movement" },
+            { id: 29, name: "Aconite 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhdgY4io5PpsXec0YFAcrfkHO2r6WNEYMDnA&s/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Sudden onset of colds or anxiety" },
+            { id: 30, name: "Sepia 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU4T3G9fMxtI_rm3llMxl0Pk3CK0EJssaceQ&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Hormonal imbalances and fatigue" },
+            { id: 31, name: "Natrum Mur 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbrWkH9cCvK_S-BiG1PcAY9j0GTYhbuzS9Gg&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Emotional grief and headaches" },
+            { id: 32, name: "Calcarea Carb 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://homeomart.com/cdn/shop/files/Calccarb30C_2a7c1ab2-91fc-434c-94e6-81981446a42a.jpg?v=1714114326/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Slow metabolism and tendency to gain weight" },
+            { id: 33, name: "Phosphorus 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfVpWkvqOGV805GgYOAzmzanqzPT9GM_Plww&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Anxiety and respiratory issues" },
+            { id: 34, name: "Silicea 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkGVYgUzUUYWuPLlEDAEtNfPppjCnXzMn6_Q&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Weak immunity and slow healing" },
+            { id: 35, name: "Ignatia 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaBZ1UM0QYNEtII54S5kPSWf4qaeAgaIXXjg&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Emotional upset from grief or disappointment" },
+            { id: 36, name: "Gelsemium 30C", category: "homeopathic", dosha: "kapha", price: 149, image: "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/eaf23b54856b401b94105b154ef62dc4.jpg?dpr=2&format=auto/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Flu-like symptoms with weakness" },
+            { id: 37, name: "Hypericum 30C", category: "homeopathic", dosha: "all", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjK8VfVHf-PNFV8fOTc0t47P0zuOJQFLBxwA&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Nerve pain after injury" },
+            { id: 38, name: "Ledum Pal 30C", category: "homeopathic", dosha: "all", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCa4WfVN_vj8he8DmutXc8jkvnB2ToBkZzIQ&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Puncture wounds and insect bites" },
+            { id: 39, name: "Apis Mel 30C", category: "homeopathic", dosha: "pitta", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs9U_8newkySXF152AgMNQvRm90R1O3DkmaQ&s/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Swelling with stinging pain" },
+            { id: 40, name: "Arsenicum Alb 30C", category: "homeopathic", dosha: "vata", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWU4wdRJk1JkUXrO3M-dsmu07VFR7zhiOF3A&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Food poisoning with vomiting and diarrhea" },
+            
+            // Allopathic Products (20)
+            { id: 41, name: "Paracetamol 500mg", category: "allopathic", dosha: "all", price: 25, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNEAQA8ws9_de41fCd3iTOa82dOMIDMxO1Bg&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Fever reducer and pain reliever" },
+            { id: 42, name: "Ibuprofen 400mg", category: "allopathic", dosha: "pitta", price: 35, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZLvffsR91EAvglFFQuXXDJ4WrnO7Vim1WUw&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Anti-inflammatory pain reliever" },
+            { id: 43, name: "Cetirizine 10mg", category: "allopathic", dosha: "kapha", price: 45, image: "https://www.xalmeds.com/cdn/shop/files/IMG_0344.jpg?v=1737265283/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antihistamine for allergies" },
+            { id: 44, name: "Omeprazole 20mg", category: "allopathic", dosha: "pitta", price: 99, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoU2YnQhwcp4T54WguU2FlwIEYUjvrT8QBaQ&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Acid reducer for heartburn" },
+            { id: 45, name: "Amoxicillin 500mg", category: "allopathic", dosha: "all", price: 129, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmJDH4heoVoLvYWRLc6IdAAXfwc1eITlX_RQ&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antibiotic for bacterial infections" },
+            { id: 46, name: "Atorvastatin 10mg", category: "allopathic", dosha: "kapha", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqBDBeZ4pt1-8IfTB4tAeipGzzYz9huRvbjw&s/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Cholesterol lowering medication" },
+            { id: 47, name: "Metformin 500mg", category: "allopathic", dosha: "kapha", price: 89, image: "https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/320/320750/pack-of-metformin-tablets.jpg?w=1155&h=1575/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Diabetes medication" },
+            { id: 48, name: "Diclofenac Gel", category: "allopathic", dosha: "vata", price: 65, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuBwabIomd95duXFvdKNzqU5pFZQkcQnq4NA&s/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Topical pain relief for joints" },
+            { id: 49, name: "Loratadine 10mg", category: "allopathic", dosha: "kapha", price: 55, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbLlJgKzKNIdSb_VFB0ChHX6PWBZgdEWjizw&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Non-drowsy allergy relief" },
+            { id: 50, name: "Pantoprazole 40mg", category: "allopathic", dosha: "pitta", price: 119, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREASRVjHOJF3wkiFcZakq2Q1bS5bFqyglEWQ&s/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For acid reflux and GERD" },
+            { id: 51, name: "Azithromycin 250mg", category: "allopathic", dosha: "all", price: 139, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHPgBzUGruG1uu4k2uZrNi-JN8uSFozB1XoA&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Broad spectrum antibiotic" },
+            { id: 52, name: "Montelukast 10mg", category: "allopathic", dosha: "kapha", price: 159, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyfdOy7hv3Jb4legyU4NsxuSZDiSBMDAu7ig&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For asthma and allergies" },
+            { id: 53, name: "Doxycycline 100mg", category: "allopathic", dosha: "all", price: 109, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR458aOk2SHqFOqhWs6iIzpD7vFHjJI6K7b3Q&s/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antibiotic for various infections" },
+            { id: 54, name: "Ciprofloxacin 500mg", category: "allopathic", dosha: "all", price: 99, image: "https://cdn.shopify.com/s/files/1/1290/8299/products/Ciprofloxacin500mgboxcopy.png?v=1603264196/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For urinary tract infections" },
+            { id: 55, name: "Clotrimazole Cream", category: "allopathic", dosha: "kapha", price: 45, image: "https://onemg.gumlet.io/l_watermark_346,w_690,h_700/a_ignore,w_690,h_700,c_pad,q_auto,f_auto/9a118fe610a84f6faa0759e420c12e1c.jpg/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antifungal cream" },
+            { id: 56, name: "Ranitidine 150mg", category: "allopathic", dosha: "pitta", price: 39, image: "https://static2.medplusmart.com/products/_b401782_/RANI0112_L.jpg/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For heartburn and acid indigestion" },
+            { id: 57, name: "Salbutamol Inhaler", category: "allopathic", dosha: "kapha", price: 199, image: "https://www.xalmeds.com/cdn/shop/files/IMG_9924.jpg?v=1735162621/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Bronchodilator for asthma" },
+            { id: 58, name: "Hydrocortisone Cream", category: "allopathic", dosha: "pitta", price: 59, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKF2A_ZbabCqrlClJ3owvEPxTTTJAxC1v1gw&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For skin inflammation and itching" },
+            { id: 59, name: "Aspirin 75mg", category: "allopathic", dosha: "vata", price: 29, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCW97E-ETkgkbpqh4RDvdCoKiF2KcabYivMA&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Blood thinner and pain reliever" },
+            { id: 60, name: "Multivitamin Tablets", category: "allopathic", dosha: "all", price: 199, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRu3RJu_9bNN7zERkLuCAfoqyh-e_xRp8JFJw&s/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Daily essential vitamins and minerals" },
+            
+            // Unani Products (20)
+            { id: 61, name: "Khamira Abresham", category: "unani", dosha: "vata", price: 349, image: "https://i0.wp.com/medimartus.com/wp-content/uploads/2024/10/Khamira-Abresham-H.A.W-Bottle.png?fit=1080%2C1080&ssl=1/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Cardiac tonic and nervine stimulant" },
+            { id: 62, name: "Roghan Baiza Murgh", category: "unani", dosha: "vata", price: 249, image: "https://store.planetayurveda.com/cdn/shop/files/RoghanBaizaMurghOil_medium.png?v=1721623966/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Egg oil for hair growth and strength" },
+            { id: 63, name: "Habbe Azaraqi", category: "unani", dosha: "kapha", price: 299, image: "https://onemg.gumlet.io/l_watermark_346,w_120,h_120/a_ignore,w_120,h_120,c_fit,q_auto,f_auto/0384a59a4a2143f2aabbb4055f091f59.jpg/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For joint pain and inflammation" },
+            { id: 64, name: "Sufoof-e-Muhazzil", category: "unani", dosha: "kapha", price: 279, image: "https://qarshihealthshop.com/cdn/shop/products/Safoof-e-Mughaliz-Web-Banner_52e93fae-1d43-4dda-a39d-a08d2f46d869_medium.png?v=1629455854/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Weight management formula" },
+            { id: 65, name: "Majoon Dabidul Ward", category: "unani", dosha: "pitta", price: 329, image: "https://qarshihealthshop.com/cdn/shop/products/Majoon-Dabeed-ul-Ward-Web-Banner_3fa1a82f-3f15-47ad-8727-3577c253ca0d_medium.png?v=1629456256/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For urinary disorders and cooling" },
+            { id: 66, name: "Arq-e-Gulab", category: "unani", dosha: "pitta", price: 199, image: "https://www.ajmal.pk/cdn/shop/files/Arq-e-Gulab-800ml_2.webp?v=1709103186/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Rose water for skin and cooling" },
+            { id: 67, name: "Sharbat Bazoori", category: "unani", dosha: "all", price: 229, image: "https://store.planetayurveda.com/cdn/shop/files/SharbatBazooriMotadil.png?v=1721373571/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For cough and respiratory health" },
+            { id: 68, name: "Roghan Baboona", category: "unani", dosha: "vata", price: 259, image: "https://onemg.gumlet.io/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/4ceb88698e55470c911ad64c7aa14a78.jpg/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For headache and nasal congestion" },
+            { id: 69, name: "Habbe Shifa", category: "unani", dosha: "all", price: 189, image: "https://cdn.shopify.com/s/files/1/0632/2421/7779/products/HAMD-047.webp?v=1661276513/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "General health tonic" },
+            { id: 70, name: "Kushta Qalai", category: "unani", dosha: "vata", price: 399, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTddGcotjQ9rv2so2WHU5DMHbK0HOPHC0Wo_A&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Mineral preparation for vitality" },
+            { id: 71, name: "Majoon Falasfa", category: "unani", dosha: "vata", price: 359, image: "https://cdn.shopify.com/s/files/1/0632/2421/7779/products/HAMD-138-1KG.webp?v=1661276748/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Brain tonic and memory enhancer" },
+            { id: 72, name: "Arq-e-Mako", category: "unani", dosha: "pitta", price: 219, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSllmloH25njlJkB4dtCwS5nYwvWpw_o3iTtw&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For eye health and vision" },
+            { id: 73, name: "Sufoof-e-Sandal", category: "unani", dosha: "pitta", price: 279, image: "https://medlelo.com/cdn/shop/files/HamdardSafoofSandal.jpg?v=1718348736/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Cooling powder for skin conditions" },
+            { id: 74, name: "Roghan Kaddu", category: "unani", dosha: "vata", price: 239, image: "https://uniqrr.com/cdn/shop/files/Untitleddesign_12_94d01285-c45c-47a2-94bc-63d2b0a610f8.jpg?v=1720616144/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For earache and ear infections" },
+            { id: 75, name: "Habbe Jadwar", category: "unani", dosha: "vata", price: 289, image: "https://uniqrr.com/cdn/shop/files/Untitled-1_f981143e-ecc6-40d8-910e-bc04fe6c9b7e.jpg?v=1683280412/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For nervous disorders and pain" },
+            { id: 76, name: "Sharbat Anar", category: "unani", dosha: "pitta", price: 249, image: "https://swadeshiayurved.com/cdn/shop/files/AnarSharbat1.jpg?v=1739268318/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Pomegranate syrup for digestion" },
+            { id: 77, name: "Majoon Ushba", category: "unani", dosha: "kapha", price: 379, image: "https://rukminim2.flixcart.com/image/850/1000/ks6ef0w0/ayurvedic/r/b/e/majun-ushba-pack-of-3-hamdard-original-imag5t2femwfun5k.jpeg?q=90&crop=false/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For energy and stamina" },
+            { id: 78, name: "Sufoof-e-Habis", category: "unani", dosha: "kapha", price: 299, image: "https://rukminim2.flixcart.com/image/850/1000/koudfgw0/ayurvedic/4/6/0/safoof-habis-50g-new-shama-original-imag37mmnas6eyyh.jpeg?q=20&crop=false)/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For diarrhea and digestive issues" },
+            { id: 79, name: "Arq-e-Nana", category: "unani", dosha: "kapha", price: 199, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEK59u48RYjaAAs6fzitVwY-DUWmE0XTA6VA&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Peppermint water for digestion" },
+            { id: 80, name: "Roghan Surkh", category: "unani", dosha: "vata", price: 269, image: "https://rukminim2.flixcart.com/image/850/1000/ko1smfk0/ayurvedic/c/i/k/roghan-surkh-25ml-new-shama-original-imag2hpejawdgmmm.jpeg?q=20&crop=false/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For joint pain and massage" },
+            
+            // Herbal/Tesarites Products (20)
+            { id: 81, name: "Moringa Powder", category: "herbal", dosha: "all", price: 249, image: "https://rukminim3.flixcart.com/image/850/1000/xif0q/vitamin-supplement/h/t/y/250-organic-moringa-powder-green-superfood-for-weight-loss-skin-original-imah7z6zcmh5jux5.jpeg?q=90&crop=false/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Nutrient-rich superfood powder" },
+            { id: 82, name: "Aloe Vera Gel", category: "herbal", dosha: "pitta", price: 199, image: "https://organicnetra.com/cdn/shop/products/71eRo91-TcS._SL1500_1527f0ab-2acd-4cae-92c4-28572ca7ef99.jpg?v=1654342043/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For skin hydration and burns" },
+            { id: 83, name: "Spirulina Tablets", category: "herbal", dosha: "all", price: 349, image: "https://images-static.nykaa.com/media/catalog/product/f/d/fd37fc68906113261241_1.jpg?tr=w-500/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Protein-rich algae supplement" },
+            { id: 84, name: "Flaxseed Powder", category: "herbal", dosha: "vata", price: 179, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiObt9qPwQlw8c1m4oQZTqzGnleXYdi5LECw&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Rich in omega-3 fatty acids" },
+            { id: 85, name: "Wheatgrass Powder", category: "herbal", dosha: "kapha", price: 299, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErrDxf8vmYlUjYpRUXY_-67UrvtmtnB-7BQ&s/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Detoxifying and alkalizing" },
+            { id: 86, name: "Chia Seeds", category: "herbal", dosha: "vata", price: 229, image: "https://eatanytime.in/cdn/shop/products/ChiaSeeds-793582.png?v=1704714078/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "High fiber and protein seeds" },
+            { id: 87, name: "Hemp Seed Oil", category: "herbal", dosha: "vata", price: 399, image: "https://www.auracacia.com/media/catalog/product/0/5/051381903824-aura-cacia-4oz-skin-care-oil-organic-hemp-seed-L190382B-front.jpeg?optimize=medium&bg-color=255,255,255&fit=bounds&height=&width=&canvas=:/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Balanced omega fatty acids" },
+            { id: 88, name: "Matcha Green Tea", category: "herbal", dosha: "kapha", price: 349, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQErArHspQKZBe1S1nsTDp6m79NmRWEjbXx9sLItpEq7kEqLMpfj4BUuOz_t-2MkMcCs68&usqp=CAU/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Antioxidant-rich powdered tea" },
+            { id: 89, name: "Ashwagandha Tea", category: "herbal", dosha: "vata", price: 279, image: "https://in.teabox.com/cdn/shop/files/AshwagandhaGreenTea_Monocarton_CarouselImage_05.jpg?v=1745212628&width=1080/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Stress-relieving herbal tea" },
+            { id: 90, name: "Triphala Tea", category: "herbal", dosha: "all", price: 249, image: "https://rukminim2.flixcart.com/image/850/1000/xif0q/tea/i/i/x/60-triphala-detox-digestive-extracts-instant-mix-tea-for-detox-original-imagmzepfjv3mubn.jpeg?q=90&crop=false/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive and detox tea" },
+            { id: 91, name: "Brahmi Tea", category: "herbal", dosha: "vata", price: 269, image: "https://www.bbassets.com/media/uploads/p/xl/40218344_3-herbs-n-root-green-tea-instant-premix-brahmi-promotes-mental-relaxation-health.jpg/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Brain-boosting herbal tea" },
+            { id: 92, name: "Tulsi Green Tea", category: "herbal", dosha: "kapha", price: 229, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVY_3rmjK7xlsFNRRFMYHnHAJe2aTqz3N52A&s/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Immune-supporting tea" },
+            { id: 93, name: "Licorice Root", category: "herbal", dosha: "pitta", price: 199, image: "https://rukminim2.flixcart.com/image/850/1000/xif0q/tea/c/j/v/100-licorice-sticks-mulethi-stick-licorice-root-sticks-original-imagmpvqkh7vfqeh.jpeg?q=90&crop=false/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "For throat and adrenal support" },
+            { id: 94, name: "Ginger Powder", category: "herbal", dosha: "kapha", price: 149, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFuKC-7bi9L8gExGC6ca4UosSMNEZikklOcQ&s/photo-1587854692152-cbe660dbde88?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive aid and anti-inflammatory" },
+            { id: 95, name: "Cinnamon Powder", category: "herbal", dosha: "kapha", price: 159, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA9PFxjJnR6XNAPHXV8GmTOaFXZ7z4Ie4d_A&s/photo-1597362925123-77861d3fbac7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Blood sugar support spice" },
+            { id: 96, name: "Fennel Seeds", category: "herbal", dosha: "vata", price: 129, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTp8wDLRfwFj4na_0QHYmy5K-lJTXJN1O5Gew&s/photo-1574323347407-f5e1c5a5ee07?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Digestive aid and breath freshener" },
+            { id: 97, name: "Shatavari Tea", category: "herbal", dosha: "vata", price: 289, image: "https://rukminim2.flixcart.com/image/850/1000/xif0q/tea/l/d/5/100-shatavari-tea-herbal-infusion-tea-stress-relief-100-g-1-original-imaggy9hevgnwgth.jpeg?q=90&crop=false/photo-1550258987-190a2d41a8ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Women's hormonal balance tea" },
+            { id: 98, name: "Gokshura Tea", category: "herbal", dosha: "kapha", price: 269, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLDUF-4U3dghonRsBJd8hgoyhunaIzStTtKA&s/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Urinary and reproductive health tea" },
+            { id: 99, name: "Neem Leaf Powder", category: "herbal", dosha: "pitta", price: 199, image: "https://images-static.nykaa.com/media/catalog/product/8/5/85b7a358906102434489_1.jpg?tr=w-500/photo-1519735777090-ec97162dc266?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Blood purifier and skin health" },
+            { id: 100, name: "Amla Powder", category: "herbal", dosha: "pitta", price: 229, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4Q9cuvVDv1-r1zsCN8UZPVxzuERfH_3rgEg&s/photo-1518895949257-7621c3c786d7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80", description: "Vitamin C rich rejuvenator" }
         ];
 
         // Cart functionality
@@ -1570,6 +1529,7 @@
             // Add event listeners to new add to cart buttons
             document.querySelectorAll('.add-to-cart').forEach(button => {
                 button.addEventListener('click', addToCart);
+                
             });
             
             // Add event listeners to wishlist buttons
@@ -2201,6 +2161,185 @@
         
         // Initialize the app when DOM is loaded
         document.addEventListener('DOMContentLoaded', init);
+
+        // Function to generate UPI payment link
+        function generateUPILink(amount) {
+            const upiId = 'morechetan9@ibl';
+            const name = 'The Dosha';
+            const note = 'Payment for order';
+            return `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&tn=${encodeURIComponent(note)}`;
+        }
+
+        // Function to generate QR code
+        function generateQRCode(amount) {
+            const qrContainer = document.getElementById('qr-code');
+            qrContainer.innerHTML = ''; // Clear existing QR code
+            
+            const upiLink = generateUPILink(amount);
+            new QRCode(qrContainer, {
+                text: upiLink,
+                width: 200,
+                height: 200
+            });
+        }
+
+        // Update payment section visibility
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.payment-form').forEach(form => form.style.display = 'none');
+                if (this.value === 'upi') {
+                    document.getElementById('upi-form').style.display = 'block';
+                    const amount = document.getElementById('upi-total').textContent;
+                    generateQRCode(amount);
+                } else if (this.value === 'cod') {
+                    document.getElementById('cod-form').style.display = 'block';
+                }
+            });
+        });
+
+        // Initialize QR code if UPI is selected by default
+        if (document.querySelector('input[name="payment"][value="upi"]').checked) {
+            const amount = document.getElementById('upi-total').textContent;
+            generateQRCode(amount);
+            document.getElementById('upi-form').style.display = 'block';
+        }
+
+        // Add styles for QR code section
+        const style = document.createElement('style');
+        style.textContent = `
+            .upi-qr-section {
+                text-align: center;
+                padding: 20px;
+            }
+            #qr-code {
+                margin: 0 auto 20px;
+                background: white;
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            }
+            .upi-info {
+                font-size: 18px;
+                margin: 15px 0;
+                color: #333;
+            }
+            .upi-id {
+                font-size: 16px;
+                color: #666;
+                margin: 10px 0;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add styles for customer details form
+        style.textContent += `
+            .customer-details-form {
+                max-width: 500px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            .customer-details-form .form-group {
+                margin-bottom: 15px;
+            }
+            .customer-details-form label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 500;
+            }
+            .customer-details-form input,
+            .customer-details-form textarea {
+                width: 100%;
+                padding: 8px 12px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 14px;
+            }
+            .customer-details-form textarea {
+                min-height: 80px;
+                resize: vertical;
+            }
+            .proceed-to-payment {
+                background-color: #4CAF50;
+                color: white;
+                padding: 12px 24px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+                width: 100%;
+                margin-top: 15px;
+            }
+            .proceed-to-payment:hover {
+                background-color: #45a049;
+            }
+        `;
+
+        // Handle proceed to payment button click
+        document.getElementById('proceed-to-upi-payment').addEventListener('click', function() {
+            const name = document.getElementById('upi-customer-name').value.trim();
+            const email = document.getElementById('upi-customer-email').value.trim();
+            const address = document.getElementById('upi-customer-address').value.trim();
+            const phone = document.getElementById('upi-customer-phone').value.trim();
+
+            // Validate form
+            if (!name || !email || !address || !phone) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+                alert('Please enter a valid email address');
+                return;
+            }
+
+            if (!phone.match(/^\d{10}$/)) {
+                alert('Please enter a valid 10-digit phone number');
+                return;
+            }
+
+            // Store customer details
+            const customerDetails = {
+                name,
+                email,
+                address,
+                phone
+            };
+            localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
+
+            // Hide customer details form and show QR code
+            document.getElementById('upi-customer-details').style.display = 'none';
+            document.getElementById('upi-qr-section').style.display = 'block';
+            document.getElementById('check-upi-payment').style.display = 'block';
+
+            // Generate QR code
+            const amount = document.getElementById('upi-total').textContent;
+            generateQRCode(amount);
+        });
+
+        // Update payment section visibility
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                document.querySelectorAll('.payment-form').forEach(form => form.style.display = 'none');
+                if (this.value === 'upi') {
+                    document.getElementById('upi-form').style.display = 'block';
+                    document.getElementById('upi-customer-details').style.display = 'block';
+                    document.getElementById('upi-qr-section').style.display = 'none';
+                    document.getElementById('check-upi-payment').style.display = 'none';
+                } else if (this.value === 'cod') {
+                    document.getElementById('cod-form').style.display = 'block';
+                }
+            });
+        });
+
+        // Back to cart button handler
+        document.getElementById('back-to-cart-upi').addEventListener('click', function() {
+            document.getElementById('upi-form').style.display = 'none';
+            document.getElementById('cart-view').style.display = 'block';
+            // Reset UPI form state
+            document.getElementById('upi-customer-details').style.display = 'block';
+            document.getElementById('upi-qr-section').style.display = 'none';
+            document.getElementById('check-upi-payment').style.display = 'none';
+        });
     </script>
 </body>
 </html>
